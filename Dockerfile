@@ -4,7 +4,6 @@ ENV LANG=en_US.UTF-8
 
 COPY requirements.txt /tmp/requirements.txt
 
-
 # add our user first to make sure the ID get assigned consistently,
 # regardless of whatever dependencies get added
 RUN addgroup -S mitmproxy && adduser -S -G mitmproxy mitmproxy \
