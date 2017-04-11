@@ -1,43 +1,19 @@
-FROM alpine:3.5
-
+FROM  ubuntu:16.04
 ENV LANG=en_US.UTF-8
+ENV LC_ALL=C
 
-COPY requirements.txt /tmp/requirements.txt
-COPY docker-entrypoint.sh /usr/local/bin/
-
-
-# add our user first to make sure the ID get assigned consistently,
-# regardless of whatever dependencies get added
-RUN addgroup -S mitmproxy && adduser -S -G mitmproxy mitmproxy \
-    && apk add --update --no-cache \
-        su-exec \
-        git \
-        g++ \
-        libffi \
-        libffi-dev \
-        libstdc++ \
-        openssl \
-        openssl-dev \
-        python3 \
-        python3-dev \
-        bash \
-    && python3 -m ensurepip \
-    && LDFLAGS=-L/lib pip3 install -r /tmp/requirements.txt \
-    && apk del --purge \
-        git \
-        g++ \
-        libffi-dev \
-        openssl-dev \
-        python3-dev \
-    && rm /tmp/requirements.txt \
-    && rm -rf ~/.cache/pip
-
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-VOLUME /home/mitmproxy/.mitmproxy
+MAINTAINER jerryhopper "https://github.com/jerryhopper"
 
 
-ENTRYPOINT ['docker-entrypoint.sh']
 
-EXPOSE 8080 8081
-CMD ["mitmproxy"]
+RUN apt-get update
+
+RUN export LC_ALL=C
+RUN apt-get install -y git python3-dev python3-pip libffi-dev libssl-dev mlocate
+RUN pip3 install mitmproxy
+RUN apt-get autoremove
+
+RUN mkdir -p "/home/mitmproxy/.mitmproxy"
+WORKDIR = "/home/mitmproxy/.mitmproxy"
+#RUN chown -R mitmproxy:mitmproxy "/home/mitmproxy/.mitmproxy"
+CMD ["/usr/local/bin/mitmdump","-q","-s", "/app/ingress-mitm.py"]
