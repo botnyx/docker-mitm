@@ -16,4 +16,4 @@ RUN apt-get autoremove
 RUN mkdir -p "/home/mitmproxy/.mitmproxy"
 WORKDIR = "/home/mitmproxy/.mitmproxy"
 #RUN chown -R mitmproxy:mitmproxy "/home/mitmproxy/.mitmproxy"
-CMD ["/usr/local/bin/mitmdump","-q","-s", "/app/ingress-mitm.py"]
+CMD ["mitmdump"]
