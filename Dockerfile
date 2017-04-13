@@ -11,6 +11,11 @@ RUN apt-get update
 RUN export LC_ALL=C
 RUN apt-get install -y git python3-dev python3-pip libffi-dev libssl-dev mlocate
 RUN pip3 install mitmproxy
+RUN pip3 install pymongo
+RUN pip3 install pymysql
+RUN pip3 install redis
+RUN pip3 install pdo
+cassandra-driver
 RUN apt-get autoremove
 
 RUN mkdir -p "/home/mitmproxy/.mitmproxy"
