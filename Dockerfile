@@ -17,6 +17,7 @@ RUN pip3 install pymysql
 RUN pip3 install redis
 RUN pip3 install pdo
 RUN pip3 install cassandra-driver
+RUN pip3 install elasticsearch
 RUN apt-get autoremove
 
 RUN mkdir -p "/home/mitmproxy/.mitmproxy"
